@@ -7,7 +7,9 @@ public record AnimalRecord(
 ) {
     Long getDaysToNextBirthday() {
         LocalDate now = LocalDate.now();
-        LocalDate nextBirthday = birthday.plusYears(ChronoUnit.YEARS.between(birthday, now)+1);
+        LocalDate nextBirthday = birthday.plusYears(ChronoUnit.YEARS.between(birthday, now)).isAfter(LocalDate.now())?
+        birthday.plusYears(ChronoUnit.YEARS.between(birthday,now)+1)
+        : birthday.plusYears(ChronoUnit.YEARS.between(birthday, now));
 
         return ChronoUnit.DAYS.between(now, nextBirthday);
     }
